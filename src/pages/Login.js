@@ -40,7 +40,9 @@ export default function Login() {
 
           <button>Login</button>
         </form>
-        <p>Don't have an account yet? Sign up</p>
+        <p>
+          Don't have an account yet? <a href="/">Sign up</a>
+        </p>
       </div>
     </div>
   );
