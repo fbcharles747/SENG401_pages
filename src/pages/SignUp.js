@@ -1,5 +1,7 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { LOGIN_URL } from "../utils/API";
 export default function SignUp() {
   const [formData, setFormData] = useState({
     ucid: "",
@@ -23,6 +25,36 @@ export default function SignUp() {
     event.preventDefault();
     console.log(formData);
     //make api calls here
+
+    axios
+      .post(`${LOGIN_URL}Account`, formData)
+      .then((res) => {
+        console.log(res);
+        setFormData({
+          ucid: "",
+          firstName: "",
+          lastName: "",
+          password: "",
+          birthDate: "",
+          email: "",
+          address: "",
+          pin: "",
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("UCID has been used to sign up another account");
+        setFormData({
+          ucid: "",
+          firstName: "",
+          lastName: "",
+          password: "",
+          birthDate: "",
+          email: "",
+          address: "",
+          pin: "",
+        });
+      });
   };
 
   return (

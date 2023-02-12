@@ -11,7 +11,11 @@ function App() {
     <>
       <Routes>
         <Route element={<PrivateRoutes auth={auth} />}>
-          <Route path="/" element={<Home auth={auth} />} exact />
+          <Route
+            path="/"
+            element={<Home auth={auth} setAuth={setAuth} />}
+            exact
+          />
         </Route>
         <Route path="/login" element={<Login setAuth={setAuth} />} />
         <Route path="/SignUp" element={<SignUp />} />
