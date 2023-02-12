@@ -1,7 +1,11 @@
+import axios from "axios";
 import { useState } from "react";
-export default function Login() {
+import { Link, useNavigate } from "react-router-dom";
+import { LOGIN_URL } from "../utils/API";
+export default function Login(props) {
+  const { setAuth } = props;
   const [loginForm, setLoginForm] = useState({ UCID: "", password: "" });
-
+  const navigate = useNavigate();
   const handleFormChange = (event) => {
     setLoginForm({
       ...loginForm,
@@ -10,13 +14,26 @@ export default function Login() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    // make the api call
+    axios
+      .get(
+        `${LOGIN_URL}Account?UCID=${loginForm.UCID}&password=${loginForm.password}`
+      )
+      .then((res) => {
+        const userAuth = res.data;
+        setAuth({
+          ...userAuth,
+          IsValid: true,
+        });
+      })
+      .then(() => navigate("/"))
+      .catch((err) => console.error(err));
+
     setLoginForm({
       UCID: "",
       password: "",
     });
-    // make api calls to access user credential
   };
-
   return (
     <div className="login">
       <div className="form-wrapper">
@@ -41,7 +58,7 @@ export default function Login() {
           <button>Login</button>
         </form>
         <p>
-          Don't have an account yet? <a href="/">Sign up</a>
+          Don't have an account yet? <Link to="/SignUp">Sign up</Link>
         </p>
       </div>
     </div>
