@@ -29,7 +29,7 @@ export default function SignUp() {
     axios
       .post(`${LOGIN_URL}Account`, formData)
       .then((res) => {
-        console.log(res);
+        
         setFormData({
           ucid: "",
           firstName: "",
